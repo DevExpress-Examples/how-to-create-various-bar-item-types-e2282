@@ -1,0 +1,202 @@
+﻿<UserControl x:Class="BarItems_Ex.MainPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="500">
+
+    <dxb:BarManager CreateStandardLayout="True" Margin="12" Name="barManager1">
+
+        <dxb:BarManager.Items>
+            <!--region #BarItems-->
+            <dxb:BarStaticItem x:Name="staticItem" Content="Static item" />
+            <dxb:BarButtonItem x:Name="itemCut" Content="Cut" Glyph="Images/cut-16x16.png" />
+            <dxb:BarButtonItem x:Name="itemCopy" Content="Copy" Glyph="Images/copy-16x16.png" />
+            <dxb:BarButtonItem x:Name="itemPaste" Content="Paste" Glyph="Images/paste-16x16.png" />
+            <dxb:BarButtonItem x:Name="itemUndo" Content="Undo" Glyph="Images/undo-16x16.png" />
+            <dxb:BarButtonItem x:Name="itemRedo" Content="Redo" Glyph="Images/redo-16x16.png" />
+            <dxb:BarCheckItem x:Name="itemBold" Content="Bold" Glyph="Images/bold-16x16.png" CheckedChanged="itemBold_CheckedChanged" />
+            <dxb:BarSubItem x:Name="itemMenu1" Content="Menu">
+                <dxb:BarSubItem.ItemLinks>
+                    <dxb:BarButtonItemLink BarItemName="itemUndo" />
+                    <dxb:BarButtonItemLink BarItemName="itemRedo" />
+                </dxb:BarSubItem.ItemLinks>
+            </dxb:BarSubItem>
+            <!--endregion #BarItems-->
+
+            <!--region #BarLinkContainerItem-->
+            <!--Create a BarLinkContainerItem to display three edit commands-->
+            <dxb:BarLinkContainerItem x:Name="linkContainerItem1" Content="Edit Commands">
+                <dxb:BarLinkContainerItem.ItemLinks>
+                    <dxb:BarButtonItemLink BarItemName="itemCut" />
+                    <dxb:BarButtonItemLink BarItemName="itemCopy" />
+                    <dxb:BarButtonItemLink BarItemName="itemPaste" />
+                </dxb:BarLinkContainerItem.ItemLinks>
+            </dxb:BarLinkContainerItem>
+            <!--Create a sub-menu displaying the BarLinkContainerItem's contents-->
+            <dxb:BarSubItem Content="Edit" x:Name="subMenu1">
+                <dxb:BarSubItem.ItemLinks>
+                    <dxb:BarLinkContainerItemLink BarItemName="linkContainerItem1" />
+                </dxb:BarSubItem.ItemLinks>
+            </dxb:BarSubItem>
+            <!--endregion #BarLinkContainerItem-->
+
+
+            <!--region #BarSplitButtonItem-->
+            <dxb:BarSplitButtonItem Name="btnSplitButtonItem" Content="Zoom" Glyph="Images/zoom-16x16.png">
+                <dxb:BarSplitButtonItem.PopupControl>
+                    <dxb:PopupControlContainer>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Zoom to:" Margin="3,0,0,0" Foreground="White" />
+                            <Grid Grid.Row="1" dx:StyleManager.ApplyApplicationTheme="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Border Grid.ColumnSpan="2" Grid.RowSpan="3" BorderThickness="1" BorderBrush="Silver" Background="White" />
+                                <RadioButton Grid.Column="0" Grid.Row="0" Content="200%" Margin="5" />
+                                <RadioButton Grid.Column="0" Grid.Row="1" Content="100%" Margin="5" />
+                                <RadioButton Grid.Column="0" Grid.Row="2" Content="75%" Margin="5" />
+                                <RadioButton Grid.Column="1" Grid.Row="0" Content="Page width" Margin="5" />
+                                <RadioButton Grid.Column="1" Grid.Row="1" Content="Whole width" Margin="5" />
+                            </Grid>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <TextBlock Text="Percent:" VerticalAlignment="Center" Margin="3,0,0,0" Foreground="White" />
+                                <dxe:SpinEdit Text="135" MinValue="25" MaxValue="800" Increment="25" Margin="5" Width="80" />
+                            </StackPanel>
+                        </Grid>
+                    </dxb:PopupControlContainer>
+                </dxb:BarSplitButtonItem.PopupControl>
+            </dxb:BarSplitButtonItem>
+            <!--endregion #BarSplitButtonItem-->
+
+
+            <!--region #ToolbarListItem-->
+            <!--The item that provides access to available toobars-->
+            <!--Set ListItemType to ShowBarsAndItems to provide access to the toolbars' items-->
+            <dxb:ToolbarListItem x:Name="toolbarListItem" Content="Toolbar list" ListItemType="ShowBarsAndItems" />
+            <!--Add the ToolbarListItem to a sub-menu-->
+            <dxb:BarSubItem x:Name="toolbarSubMenu" Content="Toolbars">
+                <dxb:BarSubItem.ItemLinks>
+                    <dxb:ToolbarListItemLink BarItemName="toolbarListItem" />
+                </dxb:BarSubItem.ItemLinks>
+            </dxb:BarSubItem>
+            <!--endregion #ToolbarListItem-->
+
+            <!--region #BarStaticItem-->
+            <dxb:BarStaticItem x:Name="staticItemDocName" Content="Document Name: " AutoSizeMode="Fill" />
+            <dxb:BarStaticItem x:Name="staticItemPos" Content="Position: " />
+            <!--endregion #BarStaticItem-->
+
+            <!--region #BarEditItem-->
+            <dxb:BarEditItem x:Name="itemTextEdit" EditValue="text">
+                <dxb:BarEditItem.EditSettings>
+                    <dxe:TextEditSettings />
+                </dxb:BarEditItem.EditSettings>
+            </dxb:BarEditItem>
+            <!--endregion #BarEditItem-->
+
+
+        </dxb:BarManager.Items>
+
+        
+        <dxb:BarManager.Bars>
+            <!--region #BarLinkContainerItem_1-->
+            <!--Create a bar and display the BarLinkContainerItem and SubMenu in the bar-->
+            <dxb:Bar x:Name="bar1" Caption="Bar 1 - BarLinkContainer">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top" Row="1" />
+                </dxb:Bar.DockInfo>
+                <dxb:Bar.ItemLinks>
+                    <dxb:BarStaticItemLink BarItemName="staticItem" UserContent="BarLinkContainer:" />
+                    <dxb:BarLinkContainerItemLink BarItemName="linkContainerItem1" />
+                    <dxb:BarItemLinkSeparator />
+                    <dxb:BarSubItemLink BarItemName="subMenu1" />
+                </dxb:Bar.ItemLinks>
+            </dxb:Bar>
+            <!--endregion #BarLinkContainerItem_1-->
+
+            <!--region #BarItems_1-->
+            <!--Use the BarItemHorzIndent property to increase the distance between items-->
+            <dxb:Bar x:Name="bar2" Caption="Bar 2 - Separators between links" BarItemHorzIndent="10">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top" Row="0" />
+                </dxb:Bar.DockInfo>
+                <dxb:Bar.ItemLinks>
+                    <dxb:BarStaticItemLink BarItemName="staticItem" UserContent="Separators between links:" />
+                    <dxb:BarButtonItemLink BarItemName="itemUndo" />
+                    <dxb:BarButtonItemLink BarItemName="itemRedo" />
+                    <!--Create a separator between items-->
+                    <dxb:BarItemLinkSeparator />
+                    <dxb:BarButtonItemLink BarItemName="itemCopy" />
+                    <dxb:BarButtonItemLink BarItemName="itemPaste" />
+                    <!--Create a separator-->
+                    <dxb:BarItemLinkSeparator />
+                    <dxb:BarCheckItemLink BarItemName="itemBold" />
+                    <dxb:BarSubItemLink BarItemName="itemMenu1" />
+                </dxb:Bar.ItemLinks>
+            </dxb:Bar>
+            <!--endregion #BarItems_1-->
+
+            <!--region #BarSplitButtonItem_1-->
+            <dxb:Bar x:Name="bar3" Caption="Bar 3 - BarSplitButtonItem">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top" Row="2" />
+                </dxb:Bar.DockInfo>
+                <dxb:Bar.ItemLinks>
+                    <dxb:BarStaticItemLink BarItemName="staticItem" UserContent="BarSplitButtonItem:" />
+                    <dxb:BarSplitButtonItemLink BarItemName="btnSplitButtonItem" />
+                </dxb:Bar.ItemLinks>
+            </dxb:Bar>
+            <!--endregion #BarSplitButtonItem_1-->
+
+
+            <!--region #ToolbarListItem_1-->
+            <dxb:Bar x:Name="bar4" Caption="Bar 4 - ToolbarListItem">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top" Row="3" />
+                </dxb:Bar.DockInfo>
+                <dxb:Bar.ItemLinks>
+                    <dxb:BarStaticItemLink BarItemName="staticItem" UserContent="ToolbarListItem within a menu:" />
+                    <dxb:BarSubItemLink BarItemName="toolbarSubMenu" />
+                </dxb:Bar.ItemLinks>
+            </dxb:Bar>
+            <!--endregion #ToolbarListItem_1-->
+
+
+            <!--region #BarStaticItem_1-->
+            <!--Create a status bar and add the BarStaticItem items to it-->
+            <dxb:Bar x:Name="statusBar" IsStatusBar="True" Caption="Status Bar" UseWholeRow="True">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Bottom" />
+                </dxb:Bar.DockInfo>
+                <dxb:Bar.ItemLinks>
+                    <dxb:BarStaticItemLink BarItemName="staticItemPos" />
+                    <dxb:BarStaticItemLink BarItemName="staticItemDocName" />
+                </dxb:Bar.ItemLinks>
+            </dxb:Bar>
+            <!--endregion #BarStaticItem_1-->
+
+
+            <!--region #BarEditItem_1-->
+            <dxb:Bar x:Name="bar5" Caption="Bar 5 - BarEditItem">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top" Row="4" />
+                </dxb:Bar.DockInfo>
+                <dxb:Bar.ItemLinks>
+                    <dxb:BarStaticItemLink BarItemName="staticItem" UserContent="BarEditItem:" />
+                    <dxb:BarEditItemLink BarItemName="itemTextEdit" EditWidth="100" />
+                </dxb:Bar.ItemLinks>
+            </dxb:Bar>
+            <!--endregion #BarEditItem_1-->
+            
+        </dxb:BarManager.Bars>
+        <RichTextBox x:Name="rtfEditor" />
+    </dxb:BarManager>
+
+</UserControl>
